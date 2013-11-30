@@ -1,35 +1,31 @@
-#require the libraries that we need
-require 'open-uri' #open the file on the internet
-require 'nokogiri' #line 10,
+require 'rubygems'
+require 'open-uri'
+require 'nokogiri'
 
 class Scraper
   attr_reader :html
 
-  def initializer url
+  def initialize(url)
     download = open(url)
     @html = Nokogiri::HTML(download)
   end
 
-  def get_student_names
-    students = html.search("div.face.front h3")
+  def get_students_names
+    html.search("h3").collect { |h3| h3.text }
+  end 
+
+  def get_students_twitters
+    html.search("a.twitter").collect {|element| element.text}
+  end
+
+  def get_students_blogs
+    html.search("a.blog @href").collect { |stuff| stuff.text }
   end
 
 end
 
-#gives us an object-what kind?
 my_scraper = Scraper.new("http://flatironschool-bk.herokuapp.com/")
-puts my_scraper.get_student_names
-
-#my folder
-# => sub-folder
-
-#My folder/sub-folder
-
-#class 
-# => class method
-# => constant
-
-#class::class_method
-#class::constant
-
+puts my_scraper.get_students_names
+puts my_scraper.get_students_twitters
+puts my_scraper.get_students_blogs
 
