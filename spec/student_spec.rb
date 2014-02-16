@@ -1,9 +1,7 @@
-class Student
-attr_accessor :name, :twitter, :blog
-  
-  @name = 
-  @twitter = 
-  @blog = 
+require './student'
 
-
-end
+describe
+  it "should"
+  expect().to eq()
+  end
+  end
